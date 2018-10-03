@@ -78,7 +78,8 @@ POWERLEVEL9K_STATUS_VERBOSE=true
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
-  git
+  git,
+  git-extras,
   zsh-syntax-highlighting
   zsh-autosuggestions
 )
