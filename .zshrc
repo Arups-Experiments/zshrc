@@ -1,22 +1,18 @@
 # If you come from bash you might have to change your $PATH.
-export PATH=$HOME/bin:/usr/local/bin:$PATH
+# export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-export ZSH="/home/arup/.oh-my-zsh"
+export ZSH="/home/arup-upopadhyay/.oh-my-zsh"
 
- #adding MongoDB to path
-export PATH=$PATH:/home/modules/mongodb/bin
-
-export NODE_ENV='development'
-
-TERM=xterm-256color
-
-# Set name of the theme to load. Optionally, if you set this to "random"
-# it'll load a random theme each time that oh-my-zsh is loaded.
+# Set name of the theme to load --- if set to "random", it will
+# load a random theme each time oh-my-zsh is loaded, in which case,
+# to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-#ZSH_THEME="xiong-chiamiov-plus"
 
-ZSH_THEME="powerlevel9k/powerlevel9k"
+export TERM="xterm-256color"
+
+#ZSH_THEME="powerlevel9k/powerlevel9k"
+ZSH_THEME="clean"
 
 POWERLEVEL9K_MODE="nerdfont-complete"
 
@@ -31,7 +27,8 @@ POWERLEVEL9K_DIR_BOLD=true
 POWERLEVEL9K_NVM_BACKGROUND='28'
 POWERLEVEL9K_NVM_FOREGROUND='15'
 POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(os_icon dir vcs node_version battery)
-POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(time)
+#POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(time)
+POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=()
 POWERLEVEL9K_PROMPT_ON_NEWLINE=true
 POWERLEVEL9K_VCS_CLEAN_FOREGROUND='black'
 POWERLEVEL9K_VCS_CLEAN_BACKGROUND='green'
@@ -50,26 +47,19 @@ POWERLEVEL9K_BATTERY_ICON='\uf1e6'
 POWERLEVEL9K_BATTERY_DISCONNECTED='$DEFAULT_COLOR'
 POWERLEVEL9K_TIME_FORMAT="%D{%H:%M:%S %d/%m/%Y}"
 POWERLEVEL9K_NODE_VERSION_BACKGROUND='022'
+#POWERLEVEL9K_COLOR_SCHEME='light'
 
-#POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(custom_apple_icon context dir vcs)
-#POWERLEVEL9K_DISABLE_RPROMPT=true
-#POWERLEVEL9K_PROMPT_ON_NEWLINE=true
-#POWERLEVEL9K_MULTILINE_LAST_PROMPT_PREFIX="▶ "
-#POWERLEVEL9K_MULTILINE_FIRST_PROMPT_PREFIX=""
-#POWERLEVEL9K_STATUS_VERBOSE=true
-
-# Set list of themes to load
-# Setting this variable when ZSH_THEME=random
-# cause zsh load theme from this variable instead of
-# looking in ~/.oh-my-zsh/themes/
-# An empty array have no effect
+# Set list of themes to pick from when loading at random
+# Setting this variable when ZSH_THEME=random will cause zsh to load
+# a theme from this variable instead of looking in ~/.oh-my-zsh/themes/
+# If set to an empty array, this variable will have no effect.
 # ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
 
-# Uncomment the following line to use hyphen-insensitive completion. Case
-# sensitive completion must be off. _ and - will be interchangeable.
+# Uncomment the following line to use hyphen-insensitive completion.
+# Case-sensitive completion must be off. _ and - will be interchangeable.
 # HYPHEN_INSENSITIVE="true"
 
 # Uncomment the following line to disable bi-weekly auto-update checks.
@@ -106,24 +96,23 @@ POWERLEVEL9K_NODE_VERSION_BACKGROUND='022'
 # Would you like to use another custom folder than $ZSH/custom?
 # ZSH_CUSTOM=/path/to/new-custom-folder
 
-# Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
+
+# Which plugins would you like to load?
+# Standard plugins can be found in ~/.oh-my-zsh/plugins/*
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
-  git,
-  git-extras,
-  zsh-syntax-highlighting
-  zsh-autosuggestions
+    git
+    battery
+    node
+    npm
+    history-substring-search
+    zsh-autosuggestions
+    zsh-syntax-highlighting
 )
 
 source $ZSH/oh-my-zsh.sh
-
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
-export EDITOR="/usr/bin/vim"
 
 # User configuration
 
@@ -153,14 +142,32 @@ export EDITOR="/usr/bin/vim"
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-alias CLANG++="clang++-6.0"
-alias gs='git status'
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+alias git-log="git log --all --decorate --oneline --graph"
+alias redis_start="sudo systemctl start redis.service"
+alias redis_stop="sudo systemctl stop redis.service && sudo systemctl start redis.service"
+alias redis_restart="sudo systemctl stop redis.service"
+alias pg_start="sudo systemctl start postgresql.service"
+alias pg_stop="sudo systemctl stop postgresql.service"
+alias pg_restart="systemctl stop postgresql.service && systemctl start postgresql.service"
+alias docker="sudo docker"
+alias gst='git status'
 alias ga='git add'
 alias gc='git status && git commit --verbose'
 alias gch='git checkout'
 alias gb='git branch'
-alias gpull='git pull'
-alias gpush='git push'
+alias gpull='git pull origin'
+alias gpush='git push origin'
+alias python='python3'
 alias gl='git log -3 --stat'
 alias pbcopy='xclip -selection clipboard'
 alias pbpaste='xclip -selection clipboard -o'
+alias restart_system='shutdown -r now'
+
+export JAVA_HOME=/usr/lib/jvm/java-1.11.0-openjdk-amd64/
+export PATH=${PATH}:$JAVA_HOME/bin/
+
