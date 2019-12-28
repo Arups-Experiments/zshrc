@@ -12,7 +12,7 @@ export ZSH="/home/arup-upopadhyay/.oh-my-zsh"
 export TERM="xterm-256color"
 
 #ZSH_THEME="powerlevel9k/powerlevel9k"
-ZSH_THEME="clean"
+ZSH_THEME="cloud"
 
 POWERLEVEL9K_MODE="nerdfont-complete"
 
@@ -167,6 +167,9 @@ alias gl='git log -3 --stat'
 alias pbcopy='xclip -selection clipboard'
 alias pbpaste='xclip -selection clipboard -o'
 alias restart_system='shutdown -r now'
+alias ls='ls --color=tty'
+alias grep='grep  --color=auto --exclude-dir={.bzr,CVS,.git,.hg,.svn}'
+alias tmux='tmux -u'
 
 export JAVA_HOME=/usr/lib/jvm/java-1.11.0-openjdk-amd64/
 export PATH=${PATH}:$JAVA_HOME/bin/
