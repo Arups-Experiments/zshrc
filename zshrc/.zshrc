@@ -11,8 +11,8 @@ export ZSH="/home/arup-upopadhyay/.oh-my-zsh"
 
 export TERM="xterm-256color"
 
-#ZSH_THEME="powerlevel9k/powerlevel9k"
-ZSH_THEME="cloud"
+ZSH_THEME="powerlevel9k/powerlevel9k"
+#ZSH_THEME="cloud"
 
 POWERLEVEL9K_MODE="nerdfont-complete"
 
@@ -24,7 +24,9 @@ POWERLEVEL9K_DIR_HOME_SUBFOLDER_BACKGROUND='004'
 POWERLEVEL9K_MULTILINE_FIRST_PROMPT_PREFIX="%F{white}┌─%f"
 POWERLEVEL9K_MULTILINE_LAST_PROMPT_PREFIX="%F{white}└─➤ %f"
 POWERLEVEL9K_DIR_BOLD=true
-POWERLEVEL9K_NVM_BACKGROUND='28'
+POWERLEVEL9K_SHORTEN_DIR_LENGTH=1
+POWERLEVEL9K_SHORTEN_STRATEGY=truncate_folders
+#POWERLEVEL9K_NVM_BACKGROUND='28'
 POWERLEVEL9K_NVM_FOREGROUND='15'
 POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(os_icon dir vcs node_version battery)
 #POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(time)
@@ -110,6 +112,7 @@ plugins=(
     history-substring-search
     zsh-autosuggestions
     zsh-syntax-highlighting
+    docker
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -143,6 +146,12 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
+export NODE_ENV='development'
+
+function set_production_mode (){
+    export NODE_ENV='production'
+}
+
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
@@ -174,3 +183,4 @@ alias tmux='tmux -u'
 export JAVA_HOME=/usr/lib/jvm/java-1.11.0-openjdk-amd64/
 export PATH=${PATH}:$JAVA_HOME/bin/
 
+export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
