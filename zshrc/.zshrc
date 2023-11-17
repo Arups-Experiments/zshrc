@@ -2,58 +2,29 @@
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-export ZSH="/home/arup-upopadhyay/.oh-my-zsh"
+export ZSH="$HOME/.oh-my-zsh"
+export PATH="$PATH:$(yarn global bin)"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
-# See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
+# See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
+#ZSH_THEME="philips"
 
-export TERM="xterm-256color"
+ZSH_THEME="miloshadzic"
 
-ZSH_THEME="powerlevel9k/powerlevel9k"
-#ZSH_THEME="cloud"
+zstyle ':omz:plugins:nvm' lazy yes
+zstyle ':omz:plugins:nvm' autoload yes
+zstyle ':omz:plugins:yarn' global-path no
 
-POWERLEVEL9K_MODE="nerdfont-complete"
-
-POWERLEVEL9K_DIR_HOME_FOREGROUND='black'
-POWERLEVEL9K_DIR_HOME_BACKGROUND='004'
-POWERLEVEL9K_DIR_HOME_SUBFOLDER_FOREGROUND='black'
-POWERLEVEL9K_SHORTEN_STRATEGY="truncate_middle"
-POWERLEVEL9K_DIR_HOME_SUBFOLDER_BACKGROUND='004'
-POWERLEVEL9K_MULTILINE_FIRST_PROMPT_PREFIX="%F{white}┌─%f"
-POWERLEVEL9K_MULTILINE_LAST_PROMPT_PREFIX="%F{white}└─➤ %f"
-POWERLEVEL9K_DIR_BOLD=true
-POWERLEVEL9K_SHORTEN_DIR_LENGTH=1
-POWERLEVEL9K_SHORTEN_STRATEGY=truncate_folders
-#POWERLEVEL9K_NVM_BACKGROUND='28'
-POWERLEVEL9K_NVM_FOREGROUND='15'
-POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(os_icon dir vcs node_version battery)
-#POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(time)
-POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=()
-POWERLEVEL9K_PROMPT_ON_NEWLINE=true
-POWERLEVEL9K_VCS_CLEAN_FOREGROUND='black'
-POWERLEVEL9K_VCS_CLEAN_BACKGROUND='green'
-POWERLEVEL9K_VCS_UNTRACKED_FOREGROUND='black'
-POWERLEVEL9K_VCS_UNTRACKED_BACKGROUND='yellow'
-POWERLEVEL9K_VCS_MODIFIED_FOREGROUND='white'
-POWERLEVEL9K_VCS_MODIFIED_BACKGROUND='black'
-POWERLEVEL9K_VCS_UNTRACKED_ICON='\u25CF'
-POWERLEVEL9K_VCS_UNSTAGED_ICON='\u00b1'
-POWERLEVEL9K_VCS_INCOMING_CHANGES_ICON='\u2193'
-POWERLEVEL9K_VCS_OUTGOING_CHANGES_ICON='\u2191'
-POWERLEVEL9K_VCS_COMMIT_ICON="\uf417"
-POWERLEVEL9K_BATTERY_CHARGING='yellow'
-POWERLEVEL9K_BATTERY_CHARGED='green'
-POWERLEVEL9K_BATTERY_ICON='\uf1e6'
-POWERLEVEL9K_BATTERY_DISCONNECTED='$DEFAULT_COLOR'
-POWERLEVEL9K_TIME_FORMAT="%D{%H:%M:%S %d/%m/%Y}"
-POWERLEVEL9K_NODE_VERSION_BACKGROUND='022'
-#POWERLEVEL9K_COLOR_SCHEME='light'
+timezsh() {
+  shell=${1-$SHELL}
+  for i in $(seq 1 10); do /usr/bin/time $shell -i -c exit; done
+}
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
-# a theme from this variable instead of looking in ~/.oh-my-zsh/themes/
+# a theme from this variable instead of looking in $ZSH/themes/
 # If set to an empty array, this variable will have no effect.
 # ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
 
@@ -64,11 +35,16 @@ POWERLEVEL9K_NODE_VERSION_BACKGROUND='022'
 # Case-sensitive completion must be off. _ and - will be interchangeable.
 # HYPHEN_INSENSITIVE="true"
 
-# Uncomment the following line to disable bi-weekly auto-update checks.
-# DISABLE_AUTO_UPDATE="true"
+# Uncomment one of the following lines to change the auto-update behavior
+# zstyle ':omz:update' mode disabled  # disable automatic updates
+# zstyle ':omz:update' mode auto      # update automatically without asking
+# zstyle ':omz:update' mode reminder  # just remind me to update when it's time
 
 # Uncomment the following line to change how often to auto-update (in days).
-# export UPDATE_ZSH_DAYS=13
+# zstyle ':omz:update' frequency 13
+
+# Uncomment the following line if pasting URLs and other text is messed up.
+# DISABLE_MAGIC_FUNCTIONS="true"
 
 # Uncomment the following line to disable colors in ls.
 # DISABLE_LS_COLORS="true"
@@ -80,6 +56,9 @@ POWERLEVEL9K_NODE_VERSION_BACKGROUND='022'
 # ENABLE_CORRECTION="true"
 
 # Uncomment the following line to display red dots whilst waiting for completion.
+# You can also set it to another string to have that shown instead of the default red dots.
+# e.g. COMPLETION_WAITING_DOTS="%F{yellow}waiting...%f"
+# Caution: this setting can cause issues with multiline prompts in zsh < 5.7.1 (see #5765)
 # COMPLETION_WAITING_DOTS="true"
 
 # Uncomment the following line if you want to disable marking untracked files
@@ -98,22 +77,20 @@ POWERLEVEL9K_NODE_VERSION_BACKGROUND='022'
 # Would you like to use another custom folder than $ZSH/custom?
 # ZSH_CUSTOM=/path/to/new-custom-folder
 
-
 # Which plugins would you like to load?
-# Standard plugins can be found in ~/.oh-my-zsh/plugins/*
-# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
+# Standard plugins can be found in $ZSH/plugins/
+# Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
-    git
-    battery
-    node
     npm
-    history-substring-search
-    zsh-autosuggestions
-    zsh-syntax-highlighting
-    docker
+    yarn
+    git
+	zsh-syntax-highlighting
+	zsh-autosuggestions
 )
+
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=180,bg=cyan,bold,underline"
 
 source $ZSH/oh-my-zsh.sh
 
@@ -134,9 +111,6 @@ source $ZSH/oh-my-zsh.sh
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
 
-# ssh
-# export SSH_KEY_PATH="~/.ssh/rsa_id"
-
 # Set personal aliases, overriding those provided by oh-my-zsh libs,
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
 # users are encouraged to define aliases within the ZSH_CUSTOM folder.
@@ -146,41 +120,17 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-export NODE_ENV='development'
 
-function set_production_mode (){
-    export NODE_ENV='production'
-}
+alias check_weather="curl http://wttr.in/Bengalore"
+alias tmux="tmux -u"
+alias sys_upgrade="sudo apt-get update && sudo apt-get upgrade -y"
+alias pbcopy="xclip -selection clipboard"
+alias pbpaste="xclip -selection clipboard -o"
+alias python='python3'
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
-alias git-log="git log --all --decorate --oneline --graph"
-alias redis_start="sudo systemctl start redis.service"
-alias redis_stop="sudo systemctl stop redis.service && sudo systemctl start redis.service"
-alias redis_restart="sudo systemctl stop redis.service"
-alias pg_start="sudo systemctl start postgresql.service"
-alias pg_stop="sudo systemctl stop postgresql.service"
-alias pg_restart="systemctl stop postgresql.service && systemctl start postgresql.service"
-alias docker="sudo docker"
-alias gst='git status'
-alias ga='git add'
-alias gc='git status && git commit --verbose'
-alias gch='git checkout'
-alias gb='git branch'
-alias gpull='git pull origin'
-alias gpush='git push origin'
-alias python='python3'
-alias gl='git log -3 --stat'
-alias pbcopy='xclip -selection clipboard'
-alias pbpaste='xclip -selection clipboard -o'
-alias restart_system='shutdown -r now'
-alias ls='ls --color=tty'
-alias grep='grep  --color=auto --exclude-dir={.bzr,CVS,.git,.hg,.svn}'
-alias tmux='tmux -u'
 
-export JAVA_HOME=/usr/lib/jvm/java-1.11.0-openjdk-amd64/
-export PATH=${PATH}:$JAVA_HOME/bin/
-
-export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
+export NVM_COLORS='cmgRY'
