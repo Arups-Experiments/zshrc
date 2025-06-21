@@ -5,6 +5,8 @@
 export ZSH="$HOME/.oh-my-zsh"
 export PATH="$PATH:$(yarn global bin)"
 
+PATH+="$PATH:/opt/nvim-linux64/bin"
+
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
@@ -16,6 +18,8 @@ ZSH_THEME="miloshadzic"
 zstyle ':omz:plugins:nvm' lazy yes
 zstyle ':omz:plugins:nvm' autoload yes
 zstyle ':omz:plugins:yarn' global-path no
+
+PROMPT='%F{240}%n%F{red}@%F{green}%m:%F{141}%d$ %F{reset}'
 
 timezsh() {
   shell=${1-$SHELL}
@@ -74,6 +78,13 @@ timezsh() {
 # see 'man strftime' for details.
 # HIST_STAMPS="mm/dd/yyyy"
 
+# History file for zsh
+HISTFILE=~/.zsh_history
+
+# How many commands to store in history
+HISTSIZE=10000
+SAVEHIST=10000
+
 # Would you like to use another custom folder than $ZSH/custom?
 # ZSH_CUSTOM=/path/to/new-custom-folder
 
@@ -86,8 +97,8 @@ plugins=(
     npm
     yarn
     git
-	zsh-syntax-highlighting
-	zsh-autosuggestions
+    zsh-syntax-highlighting
+    zsh-autosuggestions
 )
 
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=180,bg=cyan,bold,underline"
@@ -121,12 +132,13 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 
-alias check_weather="curl http://wttr.in/Bengalore"
 alias tmux="tmux -u"
-alias sys_upgrade="sudo apt-get update && sudo apt-get upgrade -y"
 alias pbcopy="xclip -selection clipboard"
 alias pbpaste="xclip -selection clipboard -o"
 alias python='python3'
+alias reboot="sudo systemctl reboot"
+alias shutdown="sudo shutdown now"
+alias -s txt=vim
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
@@ -134,3 +146,15 @@ export NVM_DIR="$HOME/.nvm"
 
 
 export NVM_COLORS='cmgRY'
+
+runpreload () {
+    sudo preload
+}
+
+sysupgrade () {
+    sudo apt-get update && sudo apt-get upgrade -y
+}
+
+gitlog () {
+    git log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(auto)%d%C(reset)' --all
+}
